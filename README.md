@@ -190,8 +190,31 @@ public class DamageZone : MonoBehaviour {
 
 In this case I created three layers: Player, Enemies and Collectionables. Then I edited the Layer Collision Matrix in the Project Settings > Physics to make that the Enemies layer only collides with the Player layer by unchecking all the boxes except the one where the Enemies and Player layers intersect. And for the Collectionables layer, I unchecked all the boxes so it doesn't collide with any layer but it can still be detected by triggers.
 
+For the enemies and collectionable not fall through the terrain, I added another layer called Terrain and I set the terrain to this layer. Then I made that the Player and Enemies layers collide with the Terrain layer by checking the corresponding boxes in the Layer Collision Matrix.
+
 ![Layer Matrix](Resources/layer-matrix.png)
 
+For detection with triggers, I created a script that I attached to the collectionable object. In this script, I use the OnTriggerEnter method to detect when the player enters the trigger zone and I log a message to the console.
+
+```csharp
+using UnityEngine;
+
+public class IsTrigger : MonoBehaviour {
+  private void OnTriggerEnter(Collider other) {
+    Debug.Log("Trigger Enter with " + other.name);
+  }
+
+  private void OnTriggerStay(Collider other) {
+    Debug.Log("Trigger Stay with " + other.name);
+  }
+
+  private void OnTriggerExit(Collider other) {
+    Debug.Log("Trigger Exit with " + other.name);
+  }
+}
+```
+
+![Layer Collision Detection](Resources/Pr3-Ej4-layer-collision-detection.gif)
 
 ### Exercise 5: 
 *Crea una escena con distintos materiales físicos (resbaladizo, rugoso, rebote alto). Aplica distintos Physic Materials a objetos. Lanza los objetos con AddForce() al pulsar la tecla X y observa cómo cambian las reacciones.*

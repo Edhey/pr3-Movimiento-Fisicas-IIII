@@ -216,6 +216,8 @@ public class IsTrigger : MonoBehaviour {
 
 ![Layer Collision Detection](Resources/Pr3-Ej4-layer-collision-detection.gif)
 
+This way we can see how the enemy collides with the player but not with the collectionable, and the collectionable is detected by trigger.
+
 ### Exercise 5: 
 *Crea una escena con distintos materiales físicos (resbaladizo, rugoso, rebote alto). Aplica distintos Physic Materials a objetos. Lanza los objetos con AddForce() al pulsar la tecla X y observa cómo cambian las reacciones.*
 For this exercise, I created three Physic Materials with different properties:

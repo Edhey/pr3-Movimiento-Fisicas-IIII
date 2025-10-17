@@ -168,6 +168,19 @@ So after that, I attached another script to the other zone. In this script, I de
 ```csharp
 using UnityEngine;
 
+public class Damage : MonoBehaviour {
+  private int damage = 0;
+
+  public void TakeDamage(int amount) {
+    damage += amount;
+    Debug.Log(gameObject.name + " has taken " + amount + " damage. Total damage: " + damage);
+  }
+}
+```
+
+```csharp
+using UnityEngine;
+
 public class DamageZone : MonoBehaviour {
   [SerializeField] private int damageAmount = 10;
 

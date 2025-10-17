@@ -254,10 +254,15 @@ This way we can see how the enemy collides with the player but not with the coll
 For this exercise, I created three Physic Materials with different properties:
 
 - **High Bounce**: This material has a low friction value of 0 and a high bounciness value of 1, making it very bouncy. The friction combine is set to Minimum, and the bounce combine to Maximum.
+
 ![High Bounce Material](Resources/high-bounce-material.png)
+
 - **Slippery**: This material has a 0 friction value, making it very slippery. I also set the bounciness to 0, the friction combine to Minimum, and the bounce combine to Average.
+
 ![Slippery Material](Resources/slippery-material.png)
+
 - **Rough**: This material has a high friction value of 1, making it very rough. The bounciness is set to 0, the friction combine to Maximum, and the bounce combine to Average.
+
 ![Rough Material](Resources/rough-material.png)
 
 I created three spheres and applied each of the Physic Materials to them. I also added a Rigidbody component to each sphere to enable physics interactions. Then, I created a script that I attached to each sphere. In this script, I declared a float variable to control the amount of force applied to the spheres. In the Update method, I check if the X key is pressed using Input.GetKeyDown. If it is, I apply an upward force to the sphere's Rigidbody using the AddForce method, multiplying the force by Vector3.forward to launch the sphere forward.

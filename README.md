@@ -1,49 +1,63 @@
 # Práctica 3 Interfaces Inteligentes. Movimiento y Físicas en Unity
+
 - **Author**: Himar Edhey Hernández Alonso
 - **Subject**: Interfaces Inteligentes
 
 ## Introduction
+
 In this practice, we will explore the implementation of movement and physics in Unity.
 
 ## Physics Situation Exercises
-### Situation 1:
+
+### Situation 1
+
 *El plano no es un objeto físico. El cubo es un objeto físico y la esfera no. En este caso, el plano y la esfera sólo tendrán collider, mientras que el cubo debe tener Rigidbody.*
 In this case, the plane maintains his position in the scene as well as the sphere, the cube remains on the plane. No movement occurs because the plane is exactly under the cube, but this collision between an dynamic collider (cube) and a static collider (plane) occurs and messages are sent on collision.
 
-### Situation 2: 
+### Situation 2
+
 *El plano no es un objeto físico. El cubo es un objeto físico y la esfera también. En este caso, el plano sólo tendrán collider, mientras que el cubo y la esfera deben tener Rigidbody.*
 In this situation, the plane maintains his position in the scene, whereas the cube remains on the plane, and the sphere falls colliding with the cube and then rolling on the plane until the end, where it falls off the plane. The first collision, between the cube (dynamic collider) and the sphere (dynamic collider) occurs and messages sent on collision. In the case of the sphere and the plane (static collider), the same happens, the collision is ocurrs and messages are sent on collision. This is the same as between the cube and the plane.
 
-### Situation 3:
+### Situation 3
+
 *El plano no es un objeto físico. El cubo es un objeto físico y la esfera es cinemática. En este caso, el plano sólo tendrán collider, mientras que el cubo y la esfera deben tener Rigidbody esta última cinemático.*
 In the situation described, all objects remain in their initial positions. The plane stays static as it is not a physical object, the cube rests on the plane without movement but with the collision described before, and the kinematic sphere remains suspended in the air, unaffected by gravity although have rigidbody. It the sphere (kinematic collider) collides with the cube (dynamic collider), the collision occurs and messages are sent on collision, but if the sphere collides with the plane (static collider), no collision event message is sent.
 
-### Situation 4:
+### Situation 4
+
 *El plano es un objeto físico. El cubo es un objeto físico y la esfera es física. En este caso, todos los objetos deben tener Rigidbody.*
 In this case all objects are affected by physics so they all fall due to gravity. There are no collisions between the objects as they fall at the same speed.
 
-### Situation 5:
+### Situation 5
+
 *El plano es un objeto físico. El cubo es un objeto físico y la esfera es física con 10 veces más masa que el cubo. En este caso, todos los objetos deben tener Rigidbody.*
 In this situation, occurs the same as in situation 4, the mass difference does not affect the falling speed as gravity is constant for all objects as the second law of Newton states.
 
-### Situation 6:
+### Situation 6
+
 *El plano es un objeto físico. El cubo es un objeto físico y la esfera es física con 100 veces más masa que el cubo. En este caso, todos los objetos deben tener Rigidbody.*
 In this situation, occurs the same as in situation 4 and 5, the mass difference does not affect the falling speed as gravity is constant for all objects. So the objects accelerate at the same rate but in terms of force, the sphere will have a greater force due to its higher mass (F = m * a).
 
-### Situation 7:
+### Situation 7
+
 *El plano es un objeto físico. El cubo es un objeto físico y la esfera es física con fricción. En este caso, todos los objetos deben tener Rigidbody.*
 When drag is applied to the sphere, it slows down its movement, so when all objects fall, the sphere falls slower than the cube and the plane. No collisions occur as the sphere falls at a slower speed and it is above the cube and the plane.
 
-### Situation 8:
+### Situation 8
+
 *El plano es un objeto físico. El cubo es un objeto físico y la esfera no es física y es Trigger. En este caso, todos los objetos deben tener Rigidbody.*
 The plane and the cube fall due to gravity, while the sphere remains suspended in the air, unaffected by gravity because does not have rigibody. The is trigger property allows the sphere to pass through other objects without physical interaction but detecting collisions. So if the cube or the plane through the sphere, a trigger message is sent on collision.
 
-### Situation 9:
+### Situation 9
+
 *El plano es un objeto físico. El cubo es un objeto físico y la esfera es física y es Trigger. En este caso, todos los objetos deben tener Rigidbody.*
 In this last situation all objects fall due to gravity at the same speed. The is Trigger option doesn't affect the falling behavior of the sphere, the rigidbody component allows it to be influenced by gravity. So instead of the last situation where the sphere wasn't physical, now it falls. But any collision is detected as they never collide.
 
 ## Exercises with Scripts
-### Exercise 1: 
+
+### Exercise 1
+
 *Crea un personaje, controla su desplazamiento con las teclas WASD o las flechas, el movimiento debe estar influenciado por usando un Rigidbody, pero manteniendo el control total.*
 
 For this exercise I used the horse model provided in the asset used in the first practice (Animals FREE - Animated Low Poly 3D Models) as my character. I removed all the components except the Transform and the Animator and added a Rigidbody component to it. I added the following camera to follow the horse adding a empty GameObject as a parent of the horse with a transform position behind and above the horse, so the camera use this transform as target to follow the horse.
@@ -82,7 +96,8 @@ So i tried the capsule collider it works better and, although I didn't use it, I
 
 Neither of them allows to move the horse properly on the terrain, We should use the Character Controller component as mentioned before, but now we are focusing on Rigidbody physics so I will flat the terrain to make it easier for the horse to move.
 
-### Exercise 2: 
+### Exercise 2
+
 *Crea varios cubos o esferas con Rigidbody dinámico. Muestra por consola el nombre del objeto con el que colisiona, y cámbiale su color al colisionar.*
 
 In this case I resolve the problem by two ways. The first one is by creating a script that I attach to each object with a Rigidbody. In this script, I use the OnCollisionEnter method to detect collisions. When a collision occurs, I log the name of the other object involved in the collision to the console using Debug.Log. Then, I change the color of the object's material to a random color by accessing the Renderer component and modifying its material color property.
@@ -133,10 +148,11 @@ public class ChangeOtherColorOnCollision : MonoBehaviour {
 
 ![Change Other Color On Collision](Resources/Pr3-Ej2-change-other-color-on-collision.gif)
 
-### Exercise 3: 
+### Exercise 3
+
 *Crea una zona (por ejemplo, un cubo grande con Is Trigger = true). Al entrar, cambia el color del personaje o activa un efecto que cambie la luz. Al salir, revierte el cambio. Añade otra zona que aumente una variable daño.*
 
-For this exercise I created two empty objects, I added to them a cube collider with the Is Trigger option enabled and I scaled them to make a zone. 
+For this exercise I created two empty objects, I added to them a cube collider with the Is Trigger option enabled and I scaled them to make a zone.
 
 First, I created a script that I attached to one zone. In this script, I added a Light object, a float and a Color object. I use the OnTriggerEnter method to detect when the player enters the trigger zone, so when the player enters, I change the color of the light to red and adjust its intensity to 2 saving the original values in the mentioned variables. Then, I use the OnTriggerExit method to detect when the player exits the trigger zone, so when the player exits, I revert the light's color and intensity to their original values.
 
@@ -198,7 +214,8 @@ public class DamageZone : MonoBehaviour {
 
 ![Trigger Zones](Resources/Pr3-Ej3-is-trigger.gif)
 
-### Exercise 4: 
+### Exercise 4
+
 *Crea tres tipos de objetos en capas distintas: jugador, enemigos, recolectables. Configura la Layer Collision Matrix (Project Settings > Physics). Haz que los enemigos solo colisionen con el jugador, y que los recolectables solo sean detectados por triggers.*
 
 In this case I created three layers: Player, Enemies and Collectionables. Then I edited the Layer Collision Matrix in the Project Settings > Physics to make that the Enemies layer only collides with the Player layer by unchecking all the boxes except the one where the Enemies and Player layers intersect. And for the Collectionables layer, I unchecked all the boxes so it doesn't collide with any layer but it can still be detected by triggers.
@@ -231,9 +248,11 @@ public class IsTrigger : MonoBehaviour {
 
 This way we can see how the enemy collides with the player but not with the collectionable, and the collectionable is detected by trigger.
 
-### Exercise 5: 
+### Exercise 5
+
 *Crea una escena con distintos materiales físicos (resbaladizo, rugoso, rebote alto). Aplica distintos Physic Materials a objetos. Lanza los objetos con AddForce() al pulsar la tecla X y observa cómo cambian las reacciones.*
 For this exercise, I created three Physic Materials with different properties:
+
 - **High Bounce**: This material has a low friction value of 0 and a high bounciness value of 1, making it very bouncy. The friction combine is set to Minimum, and the bounce combine to Maximum.
 ![High Bounce Material](Resources/high-bounce-material.png)
 - **Slippery**: This material has a 0 friction value, making it very slippery. I also set the bounciness to 0, the friction combine to Minimum, and the bounce combine to Average.
